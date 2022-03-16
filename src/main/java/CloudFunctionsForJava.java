@@ -17,23 +17,24 @@ public class CloudFunctionsForJava implements HttpFunction {
     // ストリーミング WRITE
     // 参考URL
     // https://cloud.google.com/storage/docs/streaming#storage-stream-upload-object-java
-    String projectId = "xxxxxxx";
-    String bucketName = "xxxxxx";
-    String objectName = "test";
-    String contents = "Hello world!";
-
+    String projectId = "xxxxx";
+    String bucketName = "xxxxx";
+    String objectName = "write-file.txt";
+    String contents = "Hello world!\r\n";
     Storage storage = StorageOptions.newBuilder().setProjectId(projectId).build().getService();
     BlobId blobId = BlobId.of(bucketName, objectName);
-    BlobInfo blobInfo = BlobInfo.newBuilder(blobId).build();
+    BlobInfo blobInfo = BlobInfo.newBuilder(blobId).setContentType("text/plain").build();
     byte[] content = contents.getBytes(StandardCharsets.UTF_8);
     try (WriteChannel writer = storage.writer(blobInfo)) {
-      writer.write(ByteBuffer.wrap(content));
+      for (int i = 0; i < 10; i++) {
+        writer.write(ByteBuffer.wrap(content));
+      }
     }
 
     // ストリーミング READし、ファイル出力
     // 参考URL
     // https://cloud.google.com/storage/docs/streaming#storage-stream-upload-object-java
-    BlobId blobId2 = BlobId.of(bucketName, "test_copy.csv");
+    BlobId blobId2 = BlobId.of(bucketName, "CsvSample1_copy.csv");
     BlobInfo blobInfo2 = BlobInfo.newBuilder(blobId2).setContentType("text/csv").build();
     try (WriteChannel writer = storage.writer(blobInfo2)) {
       blobId = BlobId.of(bucketName, "CsvSample1.csv");

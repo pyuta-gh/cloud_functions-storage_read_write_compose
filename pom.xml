@@ -4,7 +4,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>example</groupId>
   <artifactId>functions-hello-world</artifactId>
-  <version>1.0.0-SNAPSHOT</version>
+  <version>1.0.0</version>
   <properties>
     <maven.compiler.target>11</maven.compiler.target>
     <maven.compiler.source>11</maven.compiler.source>
@@ -22,13 +22,14 @@
     </dependencies>
   </dependencyManagement>
   <dependencies>
-    <!--  Functions Framework for Javaを依存関係に入れる -->
+    <!--  Functions Framework for Java依存関係 -->
     <dependency>
       <groupId>com.google.cloud.functions</groupId>
       <artifactId>functions-framework-api</artifactId>
       <version>1.0.1</version>
       <scope>provided</scope>
     </dependency>
+    <!--  Google Cloud SDK -->
     <dependency>
       <groupId>com.google.cloud</groupId>
       <artifactId>google-cloud-storage</artifactId>
@@ -37,7 +38,7 @@
   <build>
     <plugins>
       <plugin>
-        <!-- Function Maven プラグインを入れ、ローカル実行できるようにする -->
+        <!-- Function Mavenプラグイン、ローカル実行用 -->
         <groupId>com.google.cloud.functions</groupId>
         <artifactId>function-maven-plugin</artifactId>
         <version>0.9.3</version>
